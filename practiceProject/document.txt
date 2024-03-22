@@ -1,0 +1,10 @@
+1) how to create a app
+
+- First need to enter django docker container 
+- cmd : docker exec -it <container_name> bash
+
+- second here we need to create app
+- cmd : python manage.py startapp <app_name>
+
+- for exiting the container  
+- cmd : exit
