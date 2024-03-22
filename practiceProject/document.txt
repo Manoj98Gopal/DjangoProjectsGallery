@@ -1,10 +1,32 @@
-1) how to create a app
 
 - First need to enter django docker container 
-- cmd : docker exec -it <container_name> bash
+- cmd : docker exec -it frontstore-django bash
 
 - second here we need to create app
 - cmd : python manage.py startapp <app_name>
 
 - for exiting the container  
 - cmd : exit
+
+
+- how to makemigration the project 
+- sudo docker exec -it frontstore-django python manage.py makemigrations
+
+- how to migrate the project 
+- sudo docker exec -it frontstore-django python manage.py migrate
+
+
+
+
+How to enter db container 
+
+- sudo docker exec -it frontstore-db bash
+- psql -U myuser -d frotstor
+
+How to list the tables 
+
+- \dt
+
+how to see the table columns
+
+SELECT * FROM store_customer;

@@ -1,10 +1,7 @@
 from django.db import models
 
 
-
-
-
-class Customer(models):
+class Customer(models.Model):
     MEMBERSHIP_BRONZE = 'B'
     MEMBERSHIP_SILVER = 'S'
     MEMBERSHIP_GOLD = 'G'
