@@ -26,7 +26,7 @@ How to migrate the project
 How to enter db container 
 
 - sudo docker exec -it frontstore-db bash
-- psql -U myuser -d frotstore
+- psql -U myuser -d frontstore
 
 How to list the tables 
 

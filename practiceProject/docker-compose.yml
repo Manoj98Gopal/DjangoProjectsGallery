@@ -2,13 +2,15 @@ version: '3'
 
 services:
   frontstore-db:  # Custom container name for PostgreSQL
-    image: postgres
+    image: postgres:13
     container_name: frontstore-db
     environment:
-      POSTGRES_DB: frotstore
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+   
   frontstore-django:  # Custom container name for Django
     build: .
     container_name: frontstore-django
@@ -18,4 +20,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - frontstore-db  # Make sure the Django container depends on the database container
+      - frontstore-db  
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:  
