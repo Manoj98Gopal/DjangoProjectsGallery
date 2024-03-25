@@ -35,3 +35,7 @@ How to list the tables
 how to see the table columns
 
 SELECT * FROM store_customer;
+
+
+how to copy file to local system to container 
+docker cp /path/to/local/filename 3530fe7d43d5:/filename
