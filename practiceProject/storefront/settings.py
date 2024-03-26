@@ -144,3 +144,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# this integration for decimal shuld come in number not in string
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING':False
+}
