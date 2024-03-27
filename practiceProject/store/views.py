@@ -7,13 +7,18 @@ from .models import Product,Collection
 # Create your views here.
 
 
-@api_view()
+@api_view(['GET','POST'])
 def product_list(request):
     
-    # here passing the releated filed to getting the info of collection
-    queary = Product.objects.select_related('collection').all()[:10]
-    serialize = ProductSerializer(queary,many=True)
-    return Response(serialize.data)
+    if request.method == 'GET':
+        # here passing the releated filed to getting the info of collection
+        queary = Product.objects.select_related('collection').all()[:10]
+        serialize = ProductSerializer(queary,many=True)
+        return Response(serialize.data)
+    elif request.method == 'POST':
+        serialize = ProductSerializer(data=request.data)
+        return Response('oK')
+        
 
 
 @api_view()
