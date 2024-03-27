@@ -12,13 +12,22 @@ class CollectionSerializer(serializers.ModelSerializer):
         fields = ['id','title']
 
 
+# modelSerializer is using
+class ProductSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+        model = Product
+        fields = ['id','title','slug','price','price_with_tax','collection']
 
-class ProductSerializer(serializers.Serializer):
+# class ProductSerializer(serializers.Serializer):
+
+
     
     
-    id = serializers.IntegerField()
-    title = serializers.CharField(max_length=255)
-    slug = serializers.SlugField()
+    # id = serializers.IntegerField()
+    # title = serializers.CharField(max_length=255)
+    # slug = serializers.SlugField()
     # here changing the field name 
     price = serializers.DecimalField(max_digits=6,decimal_places=2,source="unit_price")
     price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
