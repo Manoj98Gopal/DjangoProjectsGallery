@@ -17,7 +17,11 @@ def product_list(request):
         return Response(serialize.data)
     elif request.method == 'POST':
         serialize = ProductSerializer(data=request.data)
-        return Response('oK')
+        if serialize.is_valid():
+            print(serialize.validated_data)
+            return Response('oK')
+        else:
+            return Response(serialize.errors,status=status.HTTP_400_BAD_REQUEST)
         
 
 
