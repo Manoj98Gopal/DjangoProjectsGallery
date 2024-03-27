@@ -3,14 +3,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializer import ProductSerializer
-from .models import Product
+from .models import Product,Collection
 # Create your views here.
 
 
 @api_view()
 def product_list(request):
     
-    queary = Product.objects.all()[:5]
+    # here passing the releated filed to getting the info of collection
+    queary = Product.objects.select_related('collection').all()[:10]
     serialize = ProductSerializer(queary,many=True)
     return Response(serialize.data)
 
