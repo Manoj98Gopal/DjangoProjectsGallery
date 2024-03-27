@@ -3,10 +3,13 @@ from .models import Product,Collection
 from decimal import Decimal
 
 
-class CollectionSerializer(serializers.Serializer):
+class CollectionSerializer(serializers.ModelSerializer):
     
-    id = serializers.IntegerField()
-    title = serializers.CharField(max_length=255)
+    # id = serializers.IntegerField()
+    # title = serializers.CharField(max_length=255)
+    class Meta:
+        model = Collection
+        fields = ['id','title']
 
 
 
