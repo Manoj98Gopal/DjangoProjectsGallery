@@ -17,11 +17,20 @@ def product_list(request):
         return Response(serialize.data)
     elif request.method == 'POST':
         serialize = ProductSerializer(data=request.data)
-        if serialize.is_valid():
-            print(serialize.validated_data)
-            return Response('oK')
-        else:
-            return Response(serialize.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+        # here befor validated_data we need to check is_valid 
+        # this is also one of the way to handle the error  another way also is there 
+        # if serialize.is_valid():
+        #     print(serialize.validated_data)
+        #     return Response('oK')
+        # else:
+        #     return Response(serialize.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        # this is also checking is_valid  with efficent way
+        serialize.is_valid(raise_exception=True)
+        print(serialize.validated_data)
+        return Response('oK')
         
 
 
