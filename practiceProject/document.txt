@@ -39,3 +39,20 @@ SELECT * FROM store_customer;
 
 how to copy file to local system to container 
 docker cp /path/to/local/filename 3530fe7d43d5:/filename
+
+
+
+
+
+status methods
+
+status.HTTP_200_OK: Standard response for successful HTTP requests.
+status.HTTP_201_CREATED: The request has been fulfilled, resulting in the creation of a new resource.
+status.HTTP_400_BAD_REQUEST: The server cannot or will not process the request due to an apparent client error.
+status.HTTP_401_UNAUTHORIZED: Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided.
+status.HTTP_403_FORBIDDEN: The request was valid, but the server is refusing action.
+status.HTTP_404_NOT_FOUND: The requested resource could not be found.
+status.HTTP_405_METHOD_NOT_ALLOWED: A request method is not supported for the requested resource.
+status.HTTP_500_INTERNAL_SERVER_ERROR: A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.
+
+

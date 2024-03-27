@@ -12,7 +12,7 @@ def product_list(request):
     
     if request.method == 'GET':
         # here passing the releated filed to getting the info of collection
-        queary = Product.objects.select_related('collection').all()[:10]
+        queary = Product.objects.select_related('collection').all()[:2]
         serialize = ProductSerializer(queary,many=True)
         return Response(serialize.data)
     elif request.method == 'POST':
@@ -29,8 +29,8 @@ def product_list(request):
         
         # this is also checking is_valid  with efficent way
         serialize.is_valid(raise_exception=True)
-        print(serialize.validated_data)
-        return Response('oK')
+        serialize.save()
+        return Response(serialize.data,status=status.HTTP_201_CREATED)
         
 
 

@@ -15,10 +15,13 @@ class CollectionSerializer(serializers.ModelSerializer):
 # modelSerializer is using
 class ProductSerializer(serializers.ModelSerializer):
     
-    
+    price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
+    collection = serializers.PrimaryKeyRelatedField(
+        queryset = Collection.objects.all()
+    )
     class Meta:
         model = Product
-        fields = ['id','title','slug','price','price_with_tax','collection']
+        fields = ['id','title','slug','unit_price','price_with_tax','collection','inventory','description']
 
 # class ProductSerializer(serializers.Serializer):
 
@@ -29,13 +32,11 @@ class ProductSerializer(serializers.ModelSerializer):
     # title = serializers.CharField(max_length=255)
     # slug = serializers.SlugField()
     # here changing the field name 
-    price = serializers.DecimalField(max_digits=6,decimal_places=2,source="unit_price")
-    price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
+    # price = serializers.DecimalField(max_digits=6,decimal_places=2,source="unit_price")
+    
     
     # below field we are getting the primary key of that table
-    # collection = serializers.PrimaryKeyRelatedField(
-    #     queryset = Collection.objects.all()
-    # )
+    
     
     # below fiel we are getting the title of the table and check model too
     # collection = serializers.StringRelatedField()
@@ -43,7 +44,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     # here i am attaching the collection serializer we get all fields data declared in collection serializer
     # in this field we getting  obj structure
-    collection = CollectionSerializer()
+    # collection = CollectionSerializer()
     
     
     
