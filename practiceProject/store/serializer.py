@@ -3,7 +3,10 @@ from .models import Product,Collection
 from decimal import Decimal
 
 
-
+class CollectionSerializer(serializers.Serializer):
+    
+    id = serializers.IntegerField()
+    title = serializers.CharField(max_length=255)
 
 
 
@@ -23,7 +26,13 @@ class ProductSerializer(serializers.Serializer):
     # )
     
     # below fiel we are getting the title of the table and check model too
-    collection = serializers.StringRelatedField()
+    # collection = serializers.StringRelatedField()
+    
+    
+    # here i am attaching the collection serializer we get all fields data declared in collection serializer
+    # in this field we getting  obj structure
+    collection = CollectionSerializer()
+    
     
     
     
