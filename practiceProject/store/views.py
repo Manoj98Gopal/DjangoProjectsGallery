@@ -59,5 +59,7 @@ def product_details(request,id):
         serialize.save()
         return Response(serialize.data,status=status.HTTP_200_OK)
     elif request.method == 'DELETE':
+        if product.orderitems.count() > 0:
+            return Response({'error':"product cannot be deleted"},status=status.HTTP_405_METHOD_NOT_ALLOWED)
         product.delete()
         return Response({'message':"product deleted"},status=status.HTTP_200_OK)
