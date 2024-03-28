@@ -15,10 +15,6 @@ class CollectionSerializer(serializers.ModelSerializer):
 # modelSerializer is using
 class ProductSerializer(serializers.ModelSerializer):
     
-    price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
-    collection = serializers.PrimaryKeyRelatedField(
-        queryset = Collection.objects.all()
-    )
     class Meta:
         model = Product
         fields = ['id','title','slug','unit_price','price_with_tax','collection','inventory','description']
@@ -28,6 +24,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
     
     
+    price_with_tax = serializers.SerializerMethodField(method_name="calculate_tax")
+    collection = serializers.PrimaryKeyRelatedField(
+        queryset = Collection.objects.all()
+    )
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
     # slug = serializers.SlugField()

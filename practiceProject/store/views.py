@@ -34,7 +34,7 @@ def product_list(request):
         
 
 
-@api_view()
+@api_view(['GET','PUT'])
 def product_details(request,id):
     
     # this is long code actully
@@ -48,7 +48,13 @@ def product_details(request,id):
     #     return Response({'message':str(e)},status=500)
     
     # this is short code 
-    
     product = get_object_or_404(Product,pk=id)
-    serialize = ProductSerializer(product)
-    return Response(serialize.data)
+    if request.method == 'GET':
+        serialize = ProductSerializer(product)
+        return Response(serialize.data)
+    elif request.method == 'PUT':
+        # for updateing the record we need to pass product object to serializer
+        serialize = ProductSerializer(product,data=request.data)
+        serialize.is_valid(raise_exception = True)
+        serialize.save()
+        return Response(serialize.data,status=status.HTTP_200_OK)
