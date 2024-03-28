@@ -34,7 +34,7 @@ def product_list(request):
         
 
 
-@api_view(['GET','PUT'])
+@api_view(['GET','PUT','DELETE'])
 def product_details(request,id):
     
     # this is long code actully
@@ -58,3 +58,6 @@ def product_details(request,id):
         serialize.is_valid(raise_exception = True)
         serialize.save()
         return Response(serialize.data,status=status.HTTP_200_OK)
+    elif request.method == 'DELETE':
+        product.delete()
+        return Response({'message':"product deleted"},status=status.HTTP_200_OK)
