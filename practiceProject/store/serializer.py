@@ -7,10 +7,13 @@ class CollectionSerializer(serializers.ModelSerializer):
     
     # id = serializers.IntegerField()
     # title = serializers.CharField(max_length=255)
+    # product_count = serializers.IntegerField()
+
     class Meta:
         model = Collection
         fields = ['id','title']
-
+         
+         
 
 # modelSerializer is using
 class ProductSerializer(serializers.ModelSerializer):
@@ -38,7 +41,7 @@ class ProductSerializer(serializers.ModelSerializer):
     # below field we are getting the primary key of that table
     
     
-    # below fiel we are getting the title of the table and check model too
+    # below field we are getting the title of the table and check model too
     # collection = serializers.StringRelatedField()
     
     
