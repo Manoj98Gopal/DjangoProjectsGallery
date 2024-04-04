@@ -3,8 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializer import ProductSerializer,CollectionSerializer
-from .models import Product,Collection
+from .serializer import ProductSerializer,CollectionSerializer,ReviewSerializer
+from .models import Product,Collection,Review
 # Create your views here.
 
 
@@ -86,10 +86,40 @@ class CollectionDetails(APIView):
         collection = get_object_or_404(Collection,pk=id)
         collection.delete()
         return Response({'message':"collection deleted"},status=status.HTTP_200_OK)
+    
+    
+    
+class ReviewList(APIView):
+    
+    def get(self,request):
+        queary = Review.objects.all()
+        serializer = ReviewSerializer(queary,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
         
-        
-            
-        
+    def post(self,request):
+        serializer = ReviewSerializer(data=request.data)   
+        serializer.is_valid(raise_exception=True) 
+        serializer.save()
+        return Response(serializer.data,status=status.HTTP_201_CREATED)
+    
+class ReviewDetails(APIView):
+    
+    def get(self,request,id):
+        review = get_object_or_404(Review,pk=id)   
+        serializer = ReviewSerializer(review) 
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+    def put(self,request,id):
+        review = get_object_or_404(Review,pk=id)
+        serializer = ReviewSerializer(review,data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+    def delete(self,request,id):
+        review = get_object_or_404(Review,pk=id)
+        review.delete()
+        return Response({"message":"Successfully deleted"},status = status.HTTP_200_OK)
         
 
 
