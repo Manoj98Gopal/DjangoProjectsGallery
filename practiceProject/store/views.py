@@ -12,7 +12,14 @@ from .models import Product,Collection,Review
 class ProductList(APIView):
         
     def get(self,request):
-        queary = Product.objects.select_related('collection').all()[:2]
+        queary = Product.objects.all()
+        # use get method becouse if collection_id is not there it is giving none 
+        # if you access normally it will crash more chances
+        collection_id = request.query_params.get('collection_id')
+        # print("-----------------",collection_id)
+        if collection_id is not None:
+            queary = queary.filter(collection_id=collection_id)
+            
         serialize = ProductSerializer(queary,many=True)
         return Response(serialize.data,status=status.HTTP_200_OK)
         
