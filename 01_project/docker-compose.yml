@@ -1,0 +1,56 @@
+services:
+
+  django_storefront:
+    build: .
+    container_name: django_storefront
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    networks:
+      - django_storefront_network
+
+
+  postgres:
+    image: postgres:15
+    container_name: django_storefront_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: storefront_db
+      POSTGRES_USER: storefront_user
+      POSTGRES_PASSWORD: storefront_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - django_storefront_postgres_data:/var/lib/postgresql/data
+    networks:
+      - django_storefront_network
+
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: django_storefront_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@storefront.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    volumes:
+      - django_storefront_pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - django_storefront_network
+
+
+volumes:
+  django_storefront_postgres_data:
+  django_storefront_pgadmin_data:
+
+
+networks:
+  django_storefront_network:
+    driver: bridge
